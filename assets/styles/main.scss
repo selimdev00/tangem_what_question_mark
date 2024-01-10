@@ -1,0 +1,301 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --main-black: #0b0b0b;
+  --main-white: white;
+  --main-accent: #d7a830;
+  --main-font-family: "Poppins", sans-serif;
+  --main-gray-15: rgba(255, 255, 255, 0.15);
+  --main-gray-30: rgba(255, 255, 255, 0.3);
+  --main-accent-gradient: linear-gradient(90deg, #7d5317 16.52%, #eddf95 83.91%),
+    rgba(210, 152, 26, 0.6);
+  --main-gray: #6c6c70;
+  --main-gray-10: rgba(255, 255, 255, 0.1);
+}
+
+$breakpoints: (
+  small: 480px,
+  medium: 834px,
+  large: 1024px,
+  x-large: 1200px,
+);
+
+@mixin respond-to($breakpoint) {
+  @media only screen and (min-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+
+  font-size: 10px;
+
+  @include respond-to(small) {
+    font-size: 12px;
+  }
+
+  @include respond-to(medium) {
+    font-size: 16px;
+  }
+}
+
+body {
+  font-family: var(--main-font-family);
+}
+
+button {
+  font-family: var(--main-font-family);
+
+  font-size: 10px;
+
+  @include respond-to(small) {
+    font-size: 12px;
+  }
+
+  @include respond-to(medium) {
+    font-size: 16px;
+  }
+}
+
+main {
+  min-height: 200vh;
+}
+
+.alert {
+  margin-top: 3.375em;
+  height: 3.375em;
+  background-color: var(--main-black);
+  color: var(--main-white);
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.8em 0 0;
+  gap: 1em;
+  background: url("/assets/images/alert-image.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: var(--main-black);
+
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: 1.75em;
+
+    &__item {
+      align-items: center;
+      position: relative;
+
+      &.hide {
+        &--mobile {
+          display: none;
+
+          @include respond-to(small) {
+            display: flex;
+          }
+        }
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        display: block;
+        right: -(1.75em / 2);
+        background: var(--main-gray-15);
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+      }
+
+      &:last-child {
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &__text {
+    &--bold {
+      font-weight: 600;
+    }
+
+    &--accent {
+      color: var(--main-accent);
+      font-weight: 600;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+
+    &__item {
+      color: var(--main-black);
+      background: var(--main-white);
+      font-weight: 500;
+      line-height: 110%;
+      border-radius: 14px;
+      display: flex;
+      padding: 10px 14px;
+      align-items: flex-start;
+      gap: 10px;
+      border-radius: 100px;
+      backdrop-filter: blur(15px);
+      border: 0;
+      cursor: pointer;
+    }
+  }
+
+  &__close {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: var(--main-gray-30);
+    font-size: 2em;
+    cursor: pointer;
+
+    @include respond-to(medium) {
+      display: flex;
+    }
+  }
+
+  &__next {
+    display: flex;
+
+    @include respond-to(small) {
+      display: none;
+    }
+  }
+
+  overflow: hidden;
+}
+
+.popup {
+  top: 120vh;
+  width: 100%;
+  right: 0;
+
+  @include respond-to(medium) {
+    width: 600px;
+    bottom: -6em;
+    right: 2em;
+    border-radius: 16px;
+  }
+
+  position: absolute;
+
+  height: 349px;
+  background: url("/assets/images/popup-image.png");
+  background-position-x: 60%;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 34px 0px rgba(0, 0, 0, 0.45);
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    @include respond-to(small) {
+      padding-left: 50%;
+    }
+  }
+
+  &__title {
+    font-size: 2.5em;
+    color: var(--main-white);
+  }
+
+  &__subtitle {
+    font-size: 2.5em;
+    margin-top: 0.1em;
+  }
+
+  &__content {
+    position: relative;
+
+    &__text {
+      margin-top: 0.2em;
+      color: var(--main-gray);
+      display: flex;
+      gap: 0.2em;
+
+      &--accent {
+        background: var(--main-accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: -0.04em;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 110%;
+      }
+    }
+  }
+
+  &__button {
+    background: var(--main-gray-10);
+    color: var(--main-white);
+    display: inline-flex;
+    padding: 12px 24px;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: 14px;
+    opacity: 0.9;
+    border: 0;
+    margin-top: 3em;
+    cursor: pointer;
+
+    display: none;
+
+    @include respond-to(small) {
+      display: inline-flex;
+    }
+  }
+
+  &__close {
+    color: var(--main-gray-30);
+    position: absolute;
+    top: 0.2em;
+    right: 0.3em;
+    z-index: 5;
+    font-size: 2em;
+    cursor: pointer;
+  }
+
+  &__window {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.hidden {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.visible {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
